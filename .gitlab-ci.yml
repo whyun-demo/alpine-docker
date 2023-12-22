@@ -1,0 +1,25 @@
+variables:
+  DOCKER_AUTH_HOST: 'https://index.docker.io/v1/'
+  REGISTRY_GROUP: 'yunnysunny'
+  DOCKER_AUTH_CONFIG: '{"auths": {"${DOCKER_AUTH_HOST}": {"auth": "${DOCKER_TOKEN}"}}}'
+  VERSION_PREFIX: 'v'
+
+stages:
+  - build
+
+job:image:
+  stage: build
+  tags:
+    - gitlab-com-docker
+  before_script:
+    - mkdir -p $HOME/.docker && echo $DOCKER_AUTH_CONFIG > $HOME/.docker/config.json
+  script:
+    - VERSION=${CI_COMMIT_REF_NAME#$VERSION_PREFIX}
+    - REGISTER_IMAGE=$REGISTRY_GROUP/cn-alpine:$VERSION
+    - docker build -t $REGISTER_IMAGE -f ./Dockerfile .
+    - docker push $REGISTER_IMAGE
+  allow_failure: false
+
+
+
+
