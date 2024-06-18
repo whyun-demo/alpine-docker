@@ -5,7 +5,18 @@ variables:
   VERSION_PREFIX: 'v'
 
 stages:
+  - test
   - build
+
+
+test_job:
+  stage: test
+  script:
+    - echo "git branch: $CI_COMMIT_BRANCH"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: manual
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
 
 job:image:
   stage: build
