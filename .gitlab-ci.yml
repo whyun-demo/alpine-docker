@@ -12,7 +12,7 @@ stages:
 test_job:
   stage: test
   script:
-    - echo "git branch: $CI_COMMIT_BRANCH"
+    - echo "git branch: ${CI_COMMIT_BRANCH}"
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       when: manual
