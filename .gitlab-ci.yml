@@ -9,7 +9,7 @@ stages:
   - build
 
 
-test_job:
+job:test:
   stage: test
   script:
     - echo "git branch: ${CI_COMMIT_BRANCH}"
