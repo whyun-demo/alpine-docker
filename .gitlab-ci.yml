@@ -12,7 +12,8 @@ stages:
 job:test:
   stage: test
   script:
-    - echo "git branch: ${CI_COMMIT_BRANCH}"
+    - echo current branch===
+    - echo ${CI_COMMIT_BRANCH}
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       when: manual
